@@ -14,13 +14,14 @@ after_success:
     - docker build -t claudineyreis/react-fib-server ./server
     - docker build -t claudineyreis/react-fib-worker ./worker
 
-# log in to the docker CLI
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-language: generic
+    # take those images and push them to docker hub
+    - docker push claudineyreis/react-fib-client
+    - docker push claudineyreis/react-fib-nginx
+    - docker push claudineyreis/react-fib-server
+    - docker push claudineyreis/react-fib-worker
 
-# take those images and push them to docker hub
-- docker push claudineyreis/react-fib-client
-- docker push claudineyreis/react-fib-nginx
-- docker push claudineyreis/react-fib-server
-- docker push claudineyreis/react-fib-worker
+    language: generic
+
