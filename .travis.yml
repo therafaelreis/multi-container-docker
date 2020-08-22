@@ -17,6 +17,8 @@ after_success:
 # log in to the docker CLI
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
+language: generic
+
 # take those images and push them to docker hub
 - docker push claudineyreis/react-fib-client
 - docker push claudineyreis/react-fib-nginx
