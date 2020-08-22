@@ -23,5 +23,5 @@ after_success:
     - docker push claudineyreis/react-fib-server
     - docker push claudineyreis/react-fib-worker
 
-    language: generic
+language: generic
 
