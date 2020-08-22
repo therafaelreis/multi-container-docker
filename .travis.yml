@@ -1,0 +1,24 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t claudineyreis/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true claudineyreis/react-test npm test
+
+after_success:
+    - docker build -t claudineyreis/react-fib-client ./client
+    - docker build -t claudineyreis/react-fib-nginx ./nginx
+    - docker build -t claudineyreis/react-fib-server ./server
+    - docker build -t claudineyreis/react-fib-worker ./worker
+
+# log in to the docker CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# take those images and push them to docker hub
+- docker push claudineyreis/react-fib-client
+- docker push claudineyreis/react-fib-nginx
+- docker push claudineyreis/react-fib-server
+- docker push claudineyreis/react-fib-worker
